@@ -1,6 +1,6 @@
 document.querySelector('form').addEventListener('submit', function(event) {
     event.preventDefault();
-    window.location.href = 'main.html';
+    logar(email, senha);
 });
 
 document.getElementById('buttonLoginGoogle').addEventListener('click', function() {
@@ -35,3 +35,40 @@ document.getElementById('fecharCadastro').addEventListener('click', function() {
 document.getElementById('buttonCadastrar').addEventListener('click', function() {
     modalCadastro.showModal();
 });
+
+// Validação de Senha
+document.getElementById('buttonSalvarCadastro').addEventListener('click', function() {
+    var campoEmailCadastro = document.getElementById('campoEmailCadastro').value;
+    var campoConfirmacaoSenha = document.getElementById('campoConfirmacaoSenha').value;
+    salvarCadastro(campoEmailCadastro,campoConfirmacaoSenha);
+    modalCadastro.close();
+})
+
+function salvarCadastro(campoEmailCadastro, campoConfirmacaoSenha){
+    localStorage.setItem('loginCadastrado_', campoEmailCadastro);
+    localStorage.setItem('senhaCadastrada_', campoConfirmacaoSenha);
+}
+
+// Efetuando o login
+
+document.getElementById('buttonEntrar').addEventListener('click', function(){
+var campodoLogin = document.getElementById('campoEmail').value;
+var campodaSenha = document.getElementById('campoSenha').value;
+logar(campodoLogin, campodaSenha);
+})
+
+function logar(campodoLogin, campodaSenha){
+    var loginCadastrado = localStorage.getItem('loginCadastrado_');
+    var senhaCadastrada = localStorage.getItem('senhaCadastrada_');
+    var mensagemSenhaIncorreta = document.getElementById('mensagemErro');
+
+    if (loginCadastrado != campodoLogin || senhaCadastrada != campodaSenha){
+        mensagemSenhaIncorreta.innerHTML = '<h6>Email ou senha incorretos</h6>';
+    }
+    else{
+        window.location.href = 'main.html';
+
+    }
+
+}
+
