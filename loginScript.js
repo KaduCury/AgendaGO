@@ -67,6 +67,7 @@ function logar(campodoLogin, campodaSenha){
     }
     else{
         window.location.href = 'main.html';
+        
 
     }
 
